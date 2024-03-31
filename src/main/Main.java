@@ -1,9 +1,11 @@
 package main;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         try (BufferedReader reader = new BufferedReader(new FileReader("tests.txt"))) {
             try (BufferedWriter writter = new BufferedWriter(new FileWriter("result.txt"))) {
 
@@ -13,27 +15,27 @@ public class Main {
 
                 int numbers = Integer.parseInt(reader.readLine());
 
-                String[] array = reader.readLine().split(" ");
-                int[] result_array = new int[numbers];
+                List<String> array = List.of(reader.readLine().split(" "));
+                int [] result_array = new int[array.size()];
 
                 for (int j = 0; j < numbers; j++) {
-                    result_array[j] = Integer.parseInt(array[j]);
+                    result_array[j] = Integer.parseInt(array.get(j));
                 }
 
-                SmoothSort.sort(result_array);
+                SmoothSort.smoothsort(result_array);
 
                 long end = System.nanoTime();
                 double time = (double) (end - start) / 1000000;
 
-                    writter.write(time + ";" + SmoothSort.getIterations() + ";" + numbers + "\n");
+//                writter.write(time + ";" + SmoothSort.getIterations() + ";" + numbers + "\n");
 
 
             }
         } catch (IOException e) {
-            e.printStackTrace();
-        }
+                throw new RuntimeException(e);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

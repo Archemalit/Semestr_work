@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Random;
 
 public class GenerateData {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         try (BufferedWriter writter = new BufferedWriter(new FileWriter("tests.txt"))) {
             Random rd = new Random();
             int n = rd.nextInt(50, 101);
@@ -25,8 +25,6 @@ public class GenerateData {
                 }
 
             }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 }
