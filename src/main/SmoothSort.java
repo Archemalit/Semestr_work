@@ -32,17 +32,19 @@ public class SmoothSort {
         List<Integer> array = new ArrayList<>();
 
         while(!heads.isEmpty()) {
-            for (int i = 0; i < heads.size() - 1; i++) {
-                for (int j = i + 1; j < heads.size(); j++) {
-                    if (heads.get(i).value > heads.get(j).value) {
-                        int temp = heads.get(i).value;
-                        heads.get(i).value = heads.get(j).value;
-                        heads.get(j).value = temp;
-                        heapify(heads.get(i));
-                        heapify(heads.get(j));
-                    }
+            int index = 0;
+            for (int i = 0; i < heads.size(); i++) {
+                if (heads.get(i).value > heads.get(index).value) {
+                    index = i;
                 }
             }
+
+            int temp = heads.get(index).value;
+            heads.get(index).value = heads.get(heads.size() - 1).value;
+            heads.get(heads.size() - 1).value = temp;
+            heapify(heads.get(index));
+            heapify(heads.get(heads.size() - 1));
+
             if (heads.get(heads.size() - 1).left != null) {
                 heads.add(heads.get(heads.size() - 1).left);
                 heads.add(heads.get(heads.size() - 2).right);
@@ -52,88 +54,6 @@ public class SmoothSort {
             }
         }
 
-
-
-//        int temp = heads.get(0).value;
-//        heads.get(0).value = heads.get(heads.size() - 1).value;
-//        heads.get(heads.size() - 1).value = temp;
-
-//
-//
-//        while(!heads.isEmpty()) {
-//            if (heads.size() == 1) {
-//                if (heads.get(0).left != null) {
-//                    heads.add(heads.get(0).left);
-//                    heads.add(heads.get(0).right);
-//                }
-//                array.add(heads.remove(0).value);
-//                if (heads.size() > 1) {
-//                    heapify(heads.get(0));
-//                }
-//            } else {
-//                if (heads.size() == 2) {
-//                    if (heads.get(0).value > heads.get(heads.size() - 1).value) {
-//                        int temp = heads.get(0).value;
-//                        heads.get(0).value = heads.get(heads.size() - 1).value;
-//                        heads.get(heads.size() - 1).value = temp;
-//                        heapify(heads.get(0));
-////                        heapify(heads.get(1));
-//
-//                    }
-//                } else {
-//                    if (heads.get(1).value > heads.get(2).value) {
-//                        int temp = heads.get(1).value;
-//                        heads.get(1).value = heads.get(2).value;
-//                        heads.get(2).value = temp;
-//                        heapify(heads.get(1));
-//                        heapify(heads.get(2));
-//                    }
-//
-////                    if (heads.get(0).value > heads.get(1).value) {
-////                        int temp = heads.get(0).value;
-////                        heads.get(0).value = heads.get(1).value;
-////                        heads.get(1).value = temp;
-////
-////                        heapify(heads.get(0));
-////                        heapify(heads.get(1));
-////
-////                    }
-//
-//                    if (heads.get(0).value > heads.get(heads.size() - 1).value) {
-//                        int temp = heads.get(0).value;
-//                        heads.get(0).value = heads.get(heads.size() - 1).value;
-//                        heads.get(heads.size() - 1).value = temp;
-//
-//                        heapify(heads.get(0));
-//                        heapify(heads.get(heads.size() - 1));
-//                    }
-//
-////                    if (heads.get(1).value > heads.get(2).value) {
-////                        int temp = heads.get(1).value;
-////                        heads.get(1).value = heads.get(2).value;
-////                        heads.get(2).value = temp;
-////                    }
-//
-////                    if (heads.get(0).value > heads.get(heads.size() - 2).value) {
-////                        int temp = heads.get(0).value;
-////                        heads.get(0).value = heads.get(heads.size() - 2).value;
-////                        heads.get(heads.size() - 2).value = temp;
-////
-////                    }
-//                }
-//                if (heads.get(heads.size() - 1).left != null) {
-//                    heads.add(heads.get(heads.size() - 1).left);
-//                    heads.add(heads.get(heads.size() - 2).right);
-//                    array.add(heads.remove(heads.size() - 3).value);
-////                    heapify(heads.get(0));
-////                    heapify(heads.get(1));
-//
-//
-//                } else {
-//                    array.add(heads.remove(heads.size() - 1).value);
-//                }
-//            }
-//        }
         int [] result = new int[array.size()];
         for (int i = array.size() - 1; i > -1; i--) {
             result[array.size() - 1 - i] = array.get(i);
